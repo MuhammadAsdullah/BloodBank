@@ -1,0 +1,98 @@
+﻿<!--img src="logo2.png" height=170 style="padding-right:100px;float:left"-->
+
+<form method="post" action="/Home/signupvalidation" onsubmit="return validateWhole();" action="http://localhost:8080/BloodBank/signupServlet" name="signupForm" style="padding-left:440px;background:white">
+    <span id="fNameNotValid" style=color:red size=25>
+    </span> <span id="lNameNotValid" style="padding-left:200px" color=red size=25></span> <br>
+    <input type="text" id="fn" name="firstName" onblur="fnameNotValid()" placeholder="First Name" size=25 required>
+    <input type="text" id="ln" name="lastName" placeholder="Last Name" required >  <br><br>
+    <input type="email" id="email" name="email" onblur="emailValidation()" placeholder="Enter email address" size=55.5 required>
+    <span id="unSpan" style=color:red size=25></span><br><br>
+    <input id="password" type="password" name="pass" onblur="passValidation()" placeholder="Enter password" size=40>
+    <span id="passSpan" style=color:red size=25></span><br><br>
+    <select name="countrycode">
+        <option value="+92">+92</option>
+        <option value="+72">+72</option>
+        <option value="+89">+89</option>
+        <option value="+91">+91</option>
+    </select>
+    <input type="text" id="phone" onblur="validatePhone()" placeholder="cellNo" name="phone" required>
+    <span id="phoneSpan" style="color:red" size="25"></span><br><br>
+    <label style=color:brown>DOB</label>
+    <input type="date" id="dob" name="dob" required />
+      <span id=" b d span" style=color: red> </span><br><br>
+    <input type="radio" id="male" name="gender" value="male"> Male
+    <input type="radio" id="female" name="gender" value="female"> Female
+    <span id="gSpan" style=color:red size=25></span><br><br>
+    <h4>
+        Select City
+        <select name="city" id="c<opt group title=" Azad kashmir" label="» Azad Kashmir" required>
+            <option value="City"></option>
+            <option value="Bagh"> Bagh </option>
+            <option value="Bhimber">Bhimber</option>
+            <option value="Kotli">Kotli</option>
+            <option value="Mirpur>Mirpur</option>
+            <option value="Muzaffarabad">Muzaffarabad</option></optgroup>
+            <optgroup title="Balochistan" label="» Balochistan"><option value="Barkhan">Barkhan</option><option value="Bolan">Bolan</option><option value="Chagai">Chagai</option><option value="Dera Bugti">Dera Bugti</option><option value="Gwadar">Gwadar</option><option value="Jhal Magsi">Jhal Magsi</option><option value="Kalat">Kalat</option><option value="Kharan">Kharan</option><option value="Lasbela">Lasbela</option><option value="Mastung">Mastung</option><option value="Quetta">Quetta</option><option value="Ziarat">Ziarat</option></optgroup>
+            <optgroup title="Federally Administered Tribal Areas (FATA" label="» Federally Administered Tribal Areas (FATA"><option value="Orakzai Agency">Orakzai Agency</option></optgroup>
+            <optgroup title="Islamabad Capital" label="» Islamabad Capital"><option value="Islamabad">Islamabad</option></optgroup>
+            <optgroup title="North-West Frontier Province (NWFP)" label="» North-West Frontier Province (NWFP)"><option value="Abbottabad">Abbottabad</option><option value="Charsadda">Charsadda</option><option value="Chitral">Chitral</option><option value="Dera Ismail Khan">Dera Ismail Khan</option><option value="Hangu">Hangu</option><option value="Haripur">Haripur</option><option value="Karak">Karak</option><option value="Kohat">Kohat</option><option value="Lakki Marwat">Lakki Marwat</option><option value="Malakand">Malakand</option><option value="Mansehra">Mansehra</option><option value="Mardan">Mardan</option><option value="Nowshera">Nowshera</option><option value="Peshawar">Peshawar</option><option value="Shangla">Shangla</option><option value="Swabi">Swabi</option><option value="Swat">Swat</option><option value="Tank">Tank</option></optgroup>
+            <optgroup title="Punjab" label="» Punjab">
+                <option value="Sammundri">Sammundri</option>
+                <option value="Attock">Attock</option>
+                <option value="Bahawalnagar">Bahawalnagar</option>
+                <option value="Bahawalpur">Bahawalpur</option>
+                <option value="Bhakkar">Bhakkar</option>
+                <option value="Chakwal">Chakwal</option>
+                <option value="Chiniot">Chiniot</option>
+                <option value="Dera Ghazi Khan">Dera Ghazi Khan</option>
+                <option value="Faisalabad">Faisalabad</option>
+                <option value="Gujranwala">Gujranwala</option>
+                <option value="Gujrat">Gujrat</option>
+                <option value="Hafizabad">Hafizabad</option>
+                <option value="Jhang">Jhang</option>
+                <option value="Jhelum">Jhelum</option>
+                <option value="Kasur">Kasur</option>
+                <option value="Khanewal">Khanewal</option>
+                <option value="Khushab">Khushab</option>
+                <option value="Lahore">Lahore</option>
+                <option value="Layyah">Layyah</option>
+                <option value="Lodhran">Lodhran</option>
+                <option value="Mandi Bahauddin">Mandi Bahauddin</option>
+                <option value="Mianwali">Mianwali</option>
+                <option value="Multan">Multan</option>
+                <option value="Muzaffargarh">Muzaffargarh</option>
+                <option value="Nankana Sahib">Nankana Sahib</option>
+                <option value="Narowal">Narowal</option>
+                <option value="Okara">Okara</option>
+                <option value="Pakpattan">Pakpattan</option>
+                <option value="Rahim Yar Khan">Rahim Yar Khan</option>
+                <option value="Rajanpur">Rajanpur</option>
+                <option value="Rawalpindi">Rawalpindi</option>
+                <option value="Sahiwal">Sahiwal</option>
+                <option value="Sargodha">Sargodha</option>
+                <option value="Sheikhupura">Sheikhupura</option>
+                <option value="Shekhupura">Shekhupura</option>
+                <option value="Sialkot">Sialkot</option>
+                <option value="Toba Tek Singh">Toba Tek Singh</option>
+                <option value="Vehari">Vehari</option>
+            </optgroup>
+            <optgroup title="Sindh" label="» Sindh"><option value="Badin">Badin</option><option value="Ghotki">Ghotki</option><option value="Hyderabad">Hyderabad</option><option value="Jamshoro">Jamshoro</option><option value="Karachi">Karachi</option><option value="Khairpur">Khairpur</option><option value="Larkana">Larkana</option><option value="Mirpur Khas">Mirpur Khas</option><option value="Naushahro Feroze">Naushahro Feroze</option><option value="Nawabshah">Nawabshah</option><option value="Shikarpur">Shikarpur</option><option value="Sukkur">Sukkur</option><option value="Tando Allahyar">Tando Allahyar</option><option value="Thatta">Thatta</option><option value="Umerkot">Umerkot</option></optgroup>
+        </select>
+    </h4><span id="city span" style=color:red size=25></span>
+    <label id="recoveryLabel"><h4> Your Blood Group</label>
+    <select id="blood group" name="blood group" required>
+        <option value="">blood group</option>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+    </select></h4> <span id="blood span" style=color:red size=25></span>
+    <input type="checkBox" name="isAgree" id="policy">I Agreed To display my phone number and email for Accepter
+    <span id="pSpan" style=color:red size=25></span><br><br>
+    <input type="submit" value="SignUp" id="ca" name="submit button" size=10 style=color:red>
+
+</form>

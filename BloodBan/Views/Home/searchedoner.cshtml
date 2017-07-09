@@ -1,0 +1,35 @@
+﻿@model List<BloodBan.Models.user>
+       <div style="background-color:black;border: 3px solid red;margin: auto; width: 70%;">
+        <div align="center" style="background-color: white;margin: auto; width: 100%;height: 40px;border-bottom: 3px solid red">
+            <font style=" padding:3px;font-family:cursive;font-size:20px"> Total Results = @ViewBag.size</font>
+
+        </div>
+
+        <div style="background-color: white;margin: auto; width: 60%;">
+            @foreach (BloodBan.Models.user u in Model)
+            {
+
+                <table width="100%" style="height:25% ;border: 1px solid red">
+                 
+                    <tr><td>*</td><td style="color: red;font-family:sans-serif"> Name: @u.firstname @u.lastname</td></tr>
+                    <tr><td> *</td><td style="color: red;font-family:sans-serif"> Blood Group:@u.bloodgroup</td></tr>
+                    @if (u.agreed)
+                    { 
+                        <tr><td> *</td><td style="color: red;font-family:sans-serif">Email:@u.email</td></tr>
+                    
+                        <tr><td> *</td><td style="color: red;font-family:sans-serif"> Phone Number:@u.phoneNo</td></tr>
+                    }
+                    else
+                    {
+                        <tr><td> *</td><td style="color: red;font-family:sans-serif">Email: Private</td></tr>
+                    
+                        <tr><td> *</td><td style="color: red;font-family:sans-serif"> Phone Number: Private</td></tr>
+                    }
+                        <tr><td> *</td><td style="color: red;font-family:sans-serif"> From:@u.city</td></tr>
+                   
+                </table>
+            }
+
+        </div>
+
+    </div>

@@ -1,0 +1,98 @@
+﻿<!DOCTYPE>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="~/Content/style1.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -Blood Bank</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <!--[style]>
+         .tableClassForbloodfactors {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        .tdClassForbloodfactors, .thClassForbloodfactors {
+            border: 2px solid red;
+            text-align: left;
+            padding: 8px;
+        }
+
+        .trClassForbloodfactors:nth-child(even) {
+            background-color: red;
+        }
+
+
+    </![style]-->
+    <style>
+
+        .animated {
+            -webkit-transition: height 0.2s;
+            -moz-transition: height 0.2s;
+            transition: height 0.2s;
+        }
+        </style>
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="topbar">
+
+            <div class="menu_nav">
+
+                <ul>
+                    @if (Session["name"] == null)
+                    {
+                        <li>@Html.ActionLink("Home Page", "Index", "Home")</li>
+
+                    }
+                    @if (Session["name"] != null)
+                    {
+                        //String name = @Session["name"];
+                        <li>@Html.ActionLink(@Session["name"] + "", "userHome", "Home")</li>
+                    }
+                    <li>@Html.ActionLink("BLOOD FACTORS", "bloodfactors", "Home")</li>
+                    @if (Session["name"] != null)
+                    {
+                        <li>@Html.ActionLink("BLOOD REQUESTS", "bloodRequests", "Home")</li>
+
+                    }
+
+                    <!--li@Html.ActionLink("User Session", "userHome", "Home")li-->
+                    @if (Session["name"] == null)
+                    {
+                        <li>@Html.ActionLink("SIGN UP", "signup", "Home")</li>
+                    }
+                    <li>@Html.ActionLink("BLOOD TIPS", "bloodtips", "Home")</li>
+                    @if (Session["name"] != null)
+                    {
+                        <li>@Html.ActionLink("Log Out", "Logout", "Home")</li>
+                    }
+
+                </ul>
+                <!--   <button  id='notiFrame' onclick="test1()"> click </button>    -->
+            </div>
+        </div>
+    </div>
+    <img src="~/images/logo2.jpg" height=130 style="padding-right:250px;float:left" />
+    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <h1><a href="~/Home/userHome"><span>Blood Bank</span><small>&nbsp; And whoever saves one <br> it is as if he had saved mankind entirely</small></a></h1>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <div align="center" style="color:red">
+            <footer>
+                <p style="padding-right: 500px color:red">&copy; @DateTime.Now.Year -Pakistan Blood Bank</p>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

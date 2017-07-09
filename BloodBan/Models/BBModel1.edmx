@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="bloodbankModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bloodrequest">
+          <Key>
+            <PropertyRef Name="bloodrequestid" />
+          </Key>
+          <Property Name="bloodrequestid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="bloodgroup" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+          <Property Name="presentlocation" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ishandle" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="donation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bloodrequestid" Type="int" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="datetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="experience">
+          <Key>
+            <PropertyRef Name="expid" />
+          </Key>
+          <Property Name="expid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" Nullable="false" />
+          <Property Name="experimenttext" Type="text" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="like">
+          <Key>
+            <PropertyRef Name="likeid" />
+          </Key>
+          <Property Name="likeid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="expid" Type="int" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DOB" Type="datetime" />
+          <Property Name="gender" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bloodgroup" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="phoneNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="agreed" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_bloodrequest_User">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="bloodrequest" Type="Self.bloodrequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bloodrequest">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donation_request">
+          <End Role="bloodrequest" Type="Self.bloodrequest" Multiplicity="0..1" />
+          <End Role="donation" Type="Self.donation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bloodrequest">
+              <PropertyRef Name="bloodrequestid" />
+            </Principal>
+            <Dependent Role="donation">
+              <PropertyRef Name="bloodrequestid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donation_User">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="donation" Type="Self.donation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="donation">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_experience_User">
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="experience" Type="Self.experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="experience">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_experience">
+          <End Role="experience" Type="Self.experience" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="like" Type="Self.like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="experience">
+              <PropertyRef Name="expid" />
+            </Principal>
+            <Dependent Role="like">
+              <PropertyRef Name="expid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_User">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="like" Type="Self.like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="like">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bloodbankModelStoreContainer">
+          <EntitySet Name="bloodrequest" EntityType="Self.bloodrequest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="donation" EntityType="Self.donation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="experience" EntityType="Self.experience" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="like" EntityType="Self.like" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_bloodrequest_User" Association="Self.FK_bloodrequest_User">
+            <End Role="user" EntitySet="user" />
+            <End Role="bloodrequest" EntitySet="bloodrequest" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donation_request" Association="Self.FK_donation_request">
+            <End Role="bloodrequest" EntitySet="bloodrequest" />
+            <End Role="donation" EntitySet="donation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donation_User" Association="Self.FK_donation_User">
+            <End Role="user" EntitySet="user" />
+            <End Role="donation" EntitySet="donation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_experience_User" Association="Self.FK_experience_User">
+            <End Role="user" EntitySet="user" />
+            <End Role="experience" EntitySet="experience" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_experience" Association="Self.FK_like_experience">
+            <End Role="experience" EntitySet="experience" />
+            <End Role="like" EntitySet="like" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_User" Association="Self.FK_like_User">
+            <End Role="user" EntitySet="user" />
+            <End Role="like" EntitySet="like" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="bloodbankModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bloodrequest">
+          <Key>
+            <PropertyRef Name="bloodrequestid" />
+          </Key>
+          <Property Name="bloodrequestid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="bloodgroup" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="presentlocation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ishandle" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="user" Relationship="Self.FK_bloodrequest_User" FromRole="bloodrequest" ToRole="user" />
+          <NavigationProperty Name="donations" Relationship="Self.FK_donation_request" FromRole="bloodrequest" ToRole="donation" />
+        </EntityType>
+        <EntityType Name="donation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bloodrequestid" Type="Int32" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="datetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="bloodrequest" Relationship="Self.FK_donation_request" FromRole="donation" ToRole="bloodrequest" />
+          <NavigationProperty Name="user" Relationship="Self.FK_donation_User" FromRole="donation" ToRole="user" />
+        </EntityType>
+        <EntityType Name="experience">
+          <Key>
+            <PropertyRef Name="expid" />
+          </Key>
+          <Property Name="expid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" Nullable="false" />
+          <Property Name="experimenttext" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="user" Relationship="Self.FK_experience_User" FromRole="experience" ToRole="user" />
+          <NavigationProperty Name="likes" Relationship="Self.FK_like_experience" FromRole="experience" ToRole="like" />
+        </EntityType>
+        <EntityType Name="like">
+          <Key>
+            <PropertyRef Name="likeid" />
+          </Key>
+          <Property Name="likeid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="expid" Type="Int32" />
+          <NavigationProperty Name="experience" Relationship="Self.FK_like_experience" FromRole="like" ToRole="experience" />
+          <NavigationProperty Name="user" Relationship="Self.FK_like_User" FromRole="like" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bloodgroup" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="agreed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="bloodrequests" Relationship="Self.FK_bloodrequest_User" FromRole="user" ToRole="bloodrequest" />
+          <NavigationProperty Name="donations" Relationship="Self.FK_donation_User" FromRole="user" ToRole="donation" />
+          <NavigationProperty Name="experiences" Relationship="Self.FK_experience_User" FromRole="user" ToRole="experience" />
+          <NavigationProperty Name="likes" Relationship="Self.FK_like_User" FromRole="user" ToRole="like" />
+        </EntityType>
+        <Association Name="FK_bloodrequest_User">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="bloodrequest" Type="Self.bloodrequest" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="bloodrequest">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donation_request">
+          <End Role="bloodrequest" Type="Self.bloodrequest" Multiplicity="0..1" />
+          <End Role="donation" Type="Self.donation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bloodrequest">
+              <PropertyRef Name="bloodrequestid" />
+            </Principal>
+            <Dependent Role="donation">
+              <PropertyRef Name="bloodrequestid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_donation_User">
+          <End Role="user" Type="Self.user" Multiplicity="1" />
+          <End Role="donation" Type="Self.donation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="donation">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_experience_User">
+          <End Role="user" Type="Self.user" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="experience" Type="Self.experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="experience">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_experience">
+          <End Role="experience" Type="Self.experience" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="like" Type="Self.like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="experience">
+              <PropertyRef Name="expid" />
+            </Principal>
+            <Dependent Role="like">
+              <PropertyRef Name="expid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_User">
+          <End Role="user" Type="Self.user" Multiplicity="0..1" />
+          <End Role="like" Type="Self.like" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="like">
+              <PropertyRef Name="userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="bloodbankEntities9" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bloodrequests" EntityType="Self.bloodrequest" />
+          <EntitySet Name="donations" EntityType="Self.donation" />
+          <EntitySet Name="experiences" EntityType="Self.experience" />
+          <EntitySet Name="likes" EntityType="Self.like" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="FK_bloodrequest_User" Association="Self.FK_bloodrequest_User">
+            <End Role="user" EntitySet="users" />
+            <End Role="bloodrequest" EntitySet="bloodrequests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donation_request" Association="Self.FK_donation_request">
+            <End Role="bloodrequest" EntitySet="bloodrequests" />
+            <End Role="donation" EntitySet="donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_donation_User" Association="Self.FK_donation_User">
+            <End Role="user" EntitySet="users" />
+            <End Role="donation" EntitySet="donations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_experience_User" Association="Self.FK_experience_User">
+            <End Role="user" EntitySet="users" />
+            <End Role="experience" EntitySet="experiences" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_experience" Association="Self.FK_like_experience">
+            <End Role="experience" EntitySet="experiences" />
+            <End Role="like" EntitySet="likes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_User" Association="Self.FK_like_User">
+            <End Role="user" EntitySet="users" />
+            <End Role="like" EntitySet="likes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="bloodbankModelStoreContainer" CdmEntityContainer="bloodbankEntities9">
+          <EntitySetMapping Name="bloodrequests">
+            <EntityTypeMapping TypeName="bloodbankModel.bloodrequest">
+              <MappingFragment StoreEntitySet="bloodrequest">
+                <ScalarProperty Name="bloodrequestid" ColumnName="bloodrequestid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="bloodgroup" ColumnName="bloodgroup" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+                <ScalarProperty Name="presentlocation" ColumnName="presentlocation" />
+                <ScalarProperty Name="ishandle" ColumnName="ishandle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="donations">
+            <EntityTypeMapping TypeName="bloodbankModel.donation">
+              <MappingFragment StoreEntitySet="donation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="bloodrequestid" ColumnName="bloodrequestid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="datetime" ColumnName="datetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="experiences">
+            <EntityTypeMapping TypeName="bloodbankModel.experience">
+              <MappingFragment StoreEntitySet="experience">
+                <ScalarProperty Name="expid" ColumnName="expid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="experimenttext" ColumnName="experimenttext" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="likes">
+            <EntityTypeMapping TypeName="bloodbankModel.like">
+              <MappingFragment StoreEntitySet="like">
+                <ScalarProperty Name="likeid" ColumnName="likeid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="expid" ColumnName="expid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="bloodbankModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="bloodgroup" ColumnName="bloodgroup" />
+                <ScalarProperty Name="phoneNo" ColumnName="phoneNo" />
+                <ScalarProperty Name="agreed" ColumnName="agreed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
